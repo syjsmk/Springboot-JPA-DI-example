@@ -1,12 +1,11 @@
 package com.example.demo.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class Person {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue
@@ -17,6 +16,10 @@ public class Person {
 
     @Column
     private int height;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "name", referencedColumnName = "name")
+    private List<Phone> phone;
 
     public Person(String name, int height) {
         this.name = name;
@@ -46,4 +49,13 @@ public class Person {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public List<Phone> getPhone() {
+        return phone;
+    }
+
+    public void setPhone(List<Phone> phone) {
+        this.phone = phone;
+    }
+
 }

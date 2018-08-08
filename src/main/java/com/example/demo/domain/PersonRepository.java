@@ -11,4 +11,7 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     List<Person> findByName(String name);
+
+    @Query("select name from Person where height > 50")
+    List<Person> findByHeightMoreThan50(String name);
 }
